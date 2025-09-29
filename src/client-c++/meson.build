@@ -42,7 +42,7 @@ endif
 libjson_c_dep = dependency('json-c', required : true)
 
 libcurl_dep = dependency('libcurl', required : false)
-if not libssl_dep.found()
+if not libcurl_dep.found()
   libcurl_dep = cc.find_library('curl', required : true )
 endif
 
