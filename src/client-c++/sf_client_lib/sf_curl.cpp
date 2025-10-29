@@ -17,6 +17,7 @@
 #include <curl/curl.h>
 #include <errno.h>
 #include <iostream>
+#include <random>
 #include <sf_client/sf_rc.h>
 #include <sf_utils/sf_utils.h>
 #include <sstream>
@@ -73,7 +74,8 @@ const static std::string ServerDirectory     = "dropbox/";
 static std::string GetFilePrefix()
 {
     std::stringstream ss;
-    ss << GetLocalUser() << "_" << GetLocalHost() << "_" << time(NULL);
+    std::mt19937      rng(std::random_device{}());
+    ss << GetLocalUser() << "_" << GetLocalHost() << "_" << time(NULL) << "_" << rng();
     return ss.str();
 }
 
