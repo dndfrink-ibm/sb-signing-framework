@@ -78,7 +78,8 @@ CK_VERSION PKCS11_SfModule::getLibraryVersion() const { return mLibraryVersion; 
 
 bool PKCS11_SfModule::openServerConnection(std::string urlParm,
                                            std::string epwdParm,
-                                           std::string pkeyParm)
+                                           std::string pkeyParm,
+                                           const char* passwordParm)
 {
     mUrl            = urlParm;
     mEpwdPath       = epwdParm;
@@ -89,8 +90,8 @@ bool PKCS11_SfModule::openServerConnection(std::string urlParm,
     sSfServerV1.mPrivateKeyPath = mPrivateKeyPath;
     sSfServerV1.mEpwdPath       = mEpwdPath;
     sSfServerV1.mUrl            = mUrl;
-    sSfServerV1.mUseSshAgent    = true;
-    sSfServerV1.mPasswordPtr    = NULL;
+    sSfServerV1.mUseSshAgent    = (passwordParm == NULL);
+    sSfServerV1.mPasswordPtr    = passwordParm;
 #ifdef DEBUG
     sSfServerV1.mVerbose = true;
 #else
