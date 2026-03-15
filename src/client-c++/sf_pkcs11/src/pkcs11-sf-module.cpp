@@ -103,7 +103,7 @@ bool PKCS11_SfModule::openServerConnection(std::string urlParm,
     std::cout << "PKCS11 module net namespace: " << ns << std::endl;
     std::cout << "uid: " << getuid() << " gid: " << getgid() << std::endl;
     std::cout << "SF_PKCS11 PID: " << getpid() << " PPID: " << getppid() << std::endl;
-    sleep(100); // gives you time to inspect
+    sleep(180); // gives you time to inspect
     sSfServerV1.mCurlDebug = true;
 #else
     sSfServerV1.mVerbose = false;
