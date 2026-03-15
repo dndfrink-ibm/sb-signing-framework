@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 #include <openssl/opensslv.h>
-#if(OPENSSL_VERSION_NUMBER >= 0x30000000L)
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
 #include <openssl/core_names.h>
 #include <openssl/param_build.h>
 #endif
@@ -94,6 +94,8 @@ bool PKCS11_SfModule::openServerConnection(std::string urlParm,
     sSfServerV1.mPasswordPtr    = passwordParm;
 #ifdef DEBUG
     sSfServerV1.mVerbose = true;
+    std::cout << "Using ssh agent: " << sSfServerV1.mUseSshAgent << std::endl;
+    std::cout << "Using password: " << (sSfServerV1.mPasswordPtr ? "YES" : "NO") << std::endl;
 #else
     sSfServerV1.mVerbose = false;
 #endif
@@ -155,7 +157,7 @@ bool PKCS11_SfModule::initObjects(const PKCS11_SF_SESSION_CONFIG& configParm)
                              sResponse.mOutput.data() + sResponse.mOutput.size());
             BIO_puts(sMemoryBio, sPEM.c_str());
             // FIXME: Add some error handling for NULL pointers
-#if(OPENSSL_VERSION_NUMBER >= 0x30000000L)
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
             EVP_PKEY* sPubKey    = PEM_read_bio_PUBKEY(sMemoryBio, NULL, NULL, NULL);
             BIGNUM*   sModulusBN = NULL;
             int       rc = EVP_PKEY_get_bn_param(sPubKey, OSSL_PKEY_PARAM_RSA_N, &sModulusBN);
@@ -201,7 +203,7 @@ bool PKCS11_SfModule::initObjects(const PKCS11_SF_SESSION_CONFIG& configParm)
 #endif
 
             if(sPubKey)
-#if(OPENSSL_VERSION_NUMBER >= 0x30000000L)
+#if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
                 EVP_PKEY_free(sPubKey);
 #else
                 RSA_free(sPubKey);
