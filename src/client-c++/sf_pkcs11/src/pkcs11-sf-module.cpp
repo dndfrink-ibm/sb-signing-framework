@@ -23,6 +23,7 @@
 #include <openssl/rsa.h>
 #include <sf_utils/sf_utils.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "pkcs11-sf-json.h"
 #include "pkcs11-sf-types.h"
