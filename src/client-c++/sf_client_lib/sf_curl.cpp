@@ -251,14 +251,6 @@ sf_client::rc sf_client::curlConnectToServer(const Curl_ServerInfo& serverInfoPa
     curlSessionParm.mVerbose  = serverInfoParm.mVerbose;
     curlSessionParm.mEpwdPath = serverInfoParm.mEpwdPath;
 
-#ifdef DEBUG
-    // Read own network namespace
-    char ns[256];
-    readlink("/proc/self/ns/net", ns, sizeof(ns));
-    std::cout << "PKCS11 module net namespace: " << ns << std::endl;
-    std::cout << "uid: " << getuid() << " gid: " << getgid() << std::endl;
-#endif
-
     // Init curl library
     if(CURLE_OK == sRc)
     {

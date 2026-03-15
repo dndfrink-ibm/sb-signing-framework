@@ -96,6 +96,12 @@ bool PKCS11_SfModule::openServerConnection(std::string urlParm,
     sSfServerV1.mVerbose = true;
     std::cout << "Using ssh agent: " << sSfServerV1.mUseSshAgent << std::endl;
     std::cout << "Using password: " << (sSfServerV1.mPasswordPtr ? "YES" : "NO") << std::endl;
+    // Read own network namespace
+    char ns[256];
+    readlink("/proc/self/ns/net", ns, sizeof(ns));
+    std::cout << "PKCS11 module net namespace: " << ns << std::endl;
+    std::cout << "uid: " << getuid() << " gid: " << getgid() << std::endl;
+    sSfServerV1.mCurlDebug = true;
 #else
     sSfServerV1.mVerbose = false;
 #endif
